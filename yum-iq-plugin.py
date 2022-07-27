@@ -41,7 +41,7 @@ def postresolve_hook(conduit):
             ## List hits from scan results
             scan_hits = []
             #### TEST CODE ####
-            # results_file_path = "test.json"
+            results_file_path = "test.json"
             #### END ####
             f = open(results_file_path, 'r')
             results = json.load(f)
@@ -61,11 +61,11 @@ def postresolve_hook(conduit):
                         for componentFact in alert['trigger']['componentFacts']:
                             # Get the component name and add is to the scan hits
                             scan_hits.append(componentFact['componentIdentifier']['coordinates']['artifactId'])
-                # The banned packages are the packages for which the name has a match in the scan hits
-                bannedPackages = [x for x in packages if x.po.name in scan_hits]
-                #### TEST CODE ####
-                # bannedPackages.append(packages[24])
-                #### END ####
+            # The banned packages are the packages for which the name has a match in the scan hits
+            bannedPackages = [x for x in packages if x.po.name in scan_hits]
+            #### TEST CODE ####
+            # bannedPackages.append(packages[24])
+            #### END ####
             # If there are no banned packages, we're safe
             if not bannedPackages:
                 safe = True
