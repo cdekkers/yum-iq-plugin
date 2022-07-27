@@ -41,7 +41,7 @@ def postresolve_hook(conduit):
             ## List hits from scan results
             scan_hits = []
             #### TEST CODE ####
-            results_file_path = "test.json"
+            # results_file_path = "test.json"
             #### END ####
             f = open(results_file_path, 'r')
             results = json.load(f)
