@@ -33,7 +33,7 @@ def postresolve_hook(conduit):
             # Get CLI call parameters
             cli_jar_path = conduit.confString("nexus iq","cli_jar_path",default="/usr/lib/nexus-iq-cli/nexus-iq-cli.jar")
             hostname = os.environ["HOSTNAME"]
-            iq_server_url = conduit.confString("nexus iq","url")
+            iq_server_url = conduit.confString("nexus iq","url",default="http://localhost:8070")
             credentials = conduit.confString("nexus iq","username",default="admin") + ":" + conduit.confString("nexus iq","password",default="admin123")
             results_file_path = conduit.confString("nexus iq","results_file_path",default="/tmp/cli.log")
             # Run Nexus IQ CLI
@@ -92,14 +92,14 @@ def postverifytrans_hook(conduit):
         sys.stdout = f
         # write the list of packages to be installed to stdout
         for package in conduit.getRpmDB().returnPackages():
-            yum_output.simpleList(package.po)
+            yum_output.simpleList(package)
         # Reset stdout
         sys.stdout = orig_stdout
         f.close()
         # Get CLI call parameters
         cli_jar_path = conduit.confString("nexus iq","cli_jar_path",default="/usr/lib/nexus-iq-cli/nexus-iq-cli.jar")
         hostname = os.environ["HOSTNAME"]
-        iq_server_url = conduit.confString("nexus iq","url")
+        iq_server_url = conduit.confString("nexus iq","url", default="http://locahost:8070")
         credentials = conduit.confString("nexus iq","username",default="admin") + ":" + conduit.confString("nexus iq","password",default="admin123")
         # Run Nexus IQ CLI
         subprocess.call(["/usr/bin/java", "-jar", cli_jar_path, "-i", hostname,"-s",iq_server_url, "-a", credentials, package_file_path])
